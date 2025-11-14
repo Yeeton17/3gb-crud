@@ -5,7 +5,7 @@ if (isset($_GET['id'])) {
     $user_id = intval($_GET['id']);
 
     // Prepare statement to prevent SQL injection
-    $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+    $stmt = $conn->prepare("DELETE FROM user_table WHERE id = ?");
     $stmt->bind_param("i", $user_id);
 
     if ($stmt->execute()) {

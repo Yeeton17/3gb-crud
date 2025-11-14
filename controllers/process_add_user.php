@@ -1,15 +1,17 @@
 <?php
-    
+
     require_once '../includes/db_connect.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        $firstname = trim($_POST['firstname']);
+        $lastname = trim($_POST['lastname']);
+        $email = trim($_POST['email']);
+        $course = trim($_POST['course']);
         $username = trim($_POST['username']);
-        $role = trim($_POST['role']);
-        $created_at = trim($_POST['created_at']);
         $password = $_POST['password'];
 
-        if (empty($username) || empty($role) || empty($created_at) || empty($password)) {
+        if (empty($firstname) || empty($lastname) || empty($email) || empty($course) || empty($username) || empty($password)) {
             echo "<script>
                 alert('Please fill all the fields');
                 window.location.href = '../pages/add_user.php';
@@ -19,8 +21,8 @@
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (username, role, created_at, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $username, $role, $created_at, $hashed_password);
+        $stmt = $conn->prepare("INSERT INTO user_table (firstname, lastname, email, course, username, password) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $firstname, $lastname, $email, $course, $username, $hashed_password);
 
         if ($stmt->execute()) {
             echo "<script>
