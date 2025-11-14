@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "crud";
+$db = "sims";
 
 $conn = new mysqli($host, $user, $pass, $db);
 

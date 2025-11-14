@@ -1,4 +1,11 @@
-<?php include '../includes/header.php'; ?>
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../index.php');
+    exit();
+}
+include '../includes/header.php';
+?>
 
     <body class="sb-nav-fixed">
 
@@ -15,9 +22,8 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Add User</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Add User</li>
+                            <li class="breadcrumb-item active">:|</li>
                         </ol>
-
                         <!-- USER FORM -->
                         <div class="card mb-4">
                             <div class="card-header">
@@ -25,26 +31,6 @@
                             </div>
                             <div class="card-body">
                                 <form action="../controllers/process_add_user.php" method="POST">
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label for="firstname" class="form-label">First Name</label>
-                                            <input type="text" class="form-control" id="firstname" name="firstname" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="lastname" class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" id="lastname" name="lastname" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="course" class="form-label">Course</label>
-                                            <input type="text" class="form-control" id="course" name="course" required>
-                                        </div>
-                                    </div>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="username" class="form-label">Username</label>
@@ -55,6 +41,17 @@
                                             <input type="password" class="form-control" id="password" name="password" required>
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="role" class="form-label">Role</label>
+                                            <select class="form-select" id="role" name="role" required>
+                                                <option value="" selected disabled>Choose role</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="staff">Staff</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="created_at" value="<?php date_default_timezone_set('Asia/Manila'); echo date('Y-m-d H:i:s'); ?>">
                                     <button type="submit" class="btn btn-success">Add User</button>
                                 </form>
                             </div>
